@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var express = require('express');
 var config = require('./webpack.config');
 
+var environment = process.env.NODE_ENV || 'development';
 var app = express();
 var compiler = webpack(config);
 
@@ -19,6 +20,13 @@ app.get('/', function(req, res) {
 });
 
 app.use('/css', express.static(__dirname + '/css'));
+
+app.get('/getSProjectJson', function(req, res) {
+  // send serverless test-prj if in development
+  if (environment == 'development') {
+    res.sendFile(path.join(__dirname, '/node_modules/serverless/tests/test-prj/s-project.json'));
+  }
+});
 
 app.listen(3000, 'localhost', function (err, result) {
   if (err) {
