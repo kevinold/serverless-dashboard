@@ -4,8 +4,15 @@ import {bindActionCreators} from 'redux';
 import TopNav from './TopNav';
 import LeftNav from './LeftNav';
 import Events from './Events';
+import {fetchSProjectJson} from '../actions/ProjectActions';
 
 class Dashboard extends Component {
+  componentWillMount() {
+    const {dispatch} = this.props;
+
+    dispatch(fetchSProjectJson());
+  }
+
   render() {
     const {dispatch} = this.props;
     //const actions = bindActionCreators(HomeActions, dispatch);
@@ -36,4 +43,12 @@ class Dashboard extends Component {
   }
 }
 
-export default connect(state => state)(Dashboard);
+function mapStateToProps(state) {
+  return {
+    routing: state.routing,
+    project: state.project,
+    app: state.app
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard);
