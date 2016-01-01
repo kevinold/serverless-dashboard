@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import TopNav from './TopNav';
 import LeftNav from './LeftNav';
 import Events from './Events';
+import Project from './Project';
 import {fetchSProjectJson} from '../actions/ProjectActions';
 
 class Dashboard extends Component {
@@ -14,7 +15,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const {dispatch} = this.props;
+    const {project, dispatch} = this.props;
     //const actions = bindActionCreators(HomeActions, dispatch);
     return (
       <div className="fill-height">
@@ -28,6 +29,7 @@ class Dashboard extends Component {
             </div>
 
             <div className="col-md-8">
+              <Project project={project} />
             </div>
 
             <div className="col-md-2 events fill-height">
