@@ -1,11 +1,22 @@
-var path = require('path');
-var webpack = require('webpack');
-var express = require('express');
-var config = require('./webpack.config');
+'use strict';
 
-var environment = process.env.NODE_ENV || 'development';
-var app = express();
-var compiler = webpack(config);
+let path = require('path');
+let webpack = require('webpack');
+let express = require('express');
+let config = require('./webpack.config');
+
+let environment = process.env.NODE_ENV || 'development';
+let app = express();
+let compiler = webpack(config);
+
+
+let env  = process.env;
+let home = env.HOME ||
+  env.USERPROFILE ||
+  (env.HOMEPATH ? ((env.HOMEDRIVE || 'C:/') + env.HOMEPATH) : null);
+
+let dashboardConfig = require(path.join(home, '.serverless-dashboard.json'));
+
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,

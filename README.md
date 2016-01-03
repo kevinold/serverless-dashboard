@@ -7,12 +7,16 @@ React and Redux based Dashboard for Serverless
 
 To point Serverless Dashboard to the projects you wish for it to work with:
 
-Create a `.serverless-dashboard` file in `~/` with full paths to your Serverless projects:
+Create a `.serverless-dashboard.json` file in `~/` with full paths to your Serverless projects:
 
 Example:
 ```
-/Users/serverless/projects/serverless-blog-project
-/Users/serverless/projects/serverless-contact-form-project
+{
+  "projects": [
+    "/Users/serverless/projects/serverless-blog-project",
+    "/Users/serverless/projects/serverless-contact-form-project"
+  ]
+}
 ```
 
 ## Running the project
