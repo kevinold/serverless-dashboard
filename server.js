@@ -4,6 +4,8 @@ let path = require('path');
 let webpack = require('webpack');
 let express = require('express');
 let config = require('./webpack.config');
+let Serverless = require('serverless');
+let ServerlessUtils = require('serverless/lib/utils/index');
 
 let environment = process.env.NODE_ENV || 'development';
 let app = express();
@@ -16,7 +18,17 @@ let home = env.HOME ||
   (env.HOMEPATH ? ((env.HOMEDRIVE || 'C:/') + env.HOMEPATH) : null);
 
 let dashboardConfig = require(path.join(home, '.serverless-dashboard.json'));
+console.log(dashboardConfig['projects'][0]);
 
+let serverless = new Serverless({
+  interactive: false,
+  projectPath: dashboardConfig['projects'][0]
+});
+
+let project = new serverless.classes.Project(serverless);
+console.log(project.get());
+
+console.log(project.getPopulated({ stage: 'development', region: 'us-east-1' }));
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
