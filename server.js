@@ -26,10 +26,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
 app.use('/css', express.static(__dirname + '/css'));
 
 app.get('/getSProjectJson', function(req, res) {
@@ -37,6 +33,10 @@ app.get('/getSProjectJson', function(req, res) {
   if (environment == 'development') {
     res.sendFile(path.join(__dirname, '/node_modules/serverless/tests/test-prj/s-project.json'));
   }
+});
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(3000, 'localhost', function (err, result) {
