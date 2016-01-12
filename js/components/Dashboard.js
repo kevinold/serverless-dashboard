@@ -25,7 +25,7 @@ class Dashboard extends Component {
           <div className="row fill-height">
 
             <div className="col-md-2 left-nav fill-height">
-              <LeftNav />
+              <LeftNav project={project} />
             </div>
 
             <div className="col-md-8">

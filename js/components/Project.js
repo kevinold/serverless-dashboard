@@ -4,7 +4,10 @@ class Project extends Component {
   render() {
     const { project } = this.props;
     return (
-      <pre>{ JSON.stringify(project.toJS(), null, 4) }</pre>
+      <div>
+        <h1>{project.get('name')}</h1>
+        <pre>{ JSON.stringify(project.toJS(), null, 4) }</pre>
+      </div>
     );
   }
 }
