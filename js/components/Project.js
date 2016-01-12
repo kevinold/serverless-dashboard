@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 
 class Project extends Component {
   render() {
+    const { project } = this.props;
     return (
-      <h1>{this.props.project.get('name')}</h1>
+      <pre>{ JSON.stringify(project.toJS(), null, 4) }</pre>
     );
   }
 }

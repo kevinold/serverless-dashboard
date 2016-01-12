@@ -26,9 +26,7 @@ let serverless = new Serverless({
 });
 
 let project = new serverless.classes.Project(serverless);
-console.log(project.get());
-
-console.log(project.getPopulated({ stage: 'development', region: 'us-east-1' }));
+//console.log(project.get());
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -41,10 +39,9 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use('/css', express.static(__dirname + '/css'));
 
 app.get('/getSProjectJson', function(req, res) {
-  // send serverless test-prj if in development
-  if (environment == 'development') {
-    res.sendFile(path.join(__dirname, '/node_modules/serverless/tests/test-prj/s-project.json'));
-  }
+  res.send(
+    project.getPopulated({ stage: 'development', region: 'us-east-1' })
+  );
 });
 
 app.get('*', function(req, res) {
