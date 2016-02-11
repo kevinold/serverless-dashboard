@@ -20,13 +20,18 @@ let home = env.HOME ||
 let dashboardConfig = require(path.join(home, '.serverless-dashboard.json'));
 console.log(dashboardConfig['projects'][0]);
 
+let instance;
 let serverless = new Serverless({
   interactive: false,
   projectPath: dashboardConfig['projects'][0]
 });
 
-let project = new serverless.classes.Project(serverless);
-//console.log(project.get());
+serverless.init().then(function() {
+
+  instance = new serverless.classes.State(serverless);
+  instance.load();
+
+});
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -40,7 +45,7 @@ app.use('/css', express.static(__dirname + '/css'));
 
 app.get('/getSProjectJson', function(req, res) {
   res.send(
-    project.getPopulated({ stage: 'development', region: 'us-east-1' })
+    instance.getPopulated({ stage: 'development', region: 'us-east-1' })
   );
 });
 
